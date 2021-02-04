@@ -1,0 +1,305 @@
+html{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+body{
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+    }
+
+/*Code section for Header formatting*/
+header{
+        background: #47efaf; /* Old browsers */
+        background: -moz-linear-gradient(45deg, #47efaf 0%, #2989d8 40%, #207cca 58%, #7db9e8 100%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(45deg, #47efaf 0%,#2989d8 40%,#207cca 58%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(45deg, #47efaf 0%,#2989d8 40%,#207cca 58%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#47efaf', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/*Code section for World logo*/
+header figure{
+    height: 100px;
+    margin: 15px;
+    display: block;
+    text-align: center;
+}
+
+header figure img{
+    max-height: 80%;
+    max-height: 80%;
+    width: auto;
+    opacity: .8;
+    border-radius: 50%;
+    /*mix-blend-mode: multiply;
+    */
+}
+
+header figure figcaption{
+    opacity: .5;
+}
+
+/*
+Code section for the main content, divided in 3 sections:
+    - Image Container: Image to show
+    - CardHolder: Show the info acquired from the response
+*/
+main{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: url(src/bodyBg.jpg);
+    background-size: cover;
+}
+
+div.imageContainer{
+    background-color: rgb(239, 246, 252, .1);
+    margin: 0;
+    padding: 0 0px;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+div.imageContainer figure{
+    display: contents;
+    margin: 0;
+}
+
+div.imageContainer figure img{
+    max-height: 90%;
+    max-width: 90%;
+    
+
+}
+
+div.cardContainer{
+    background-color: rgba(245, 234, 76, 0.1);
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.cardHolder{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 20px 0;
+    height: 100%;
+}
+
+table.cardItem{
+    margin: 10px 0;
+    padding: 10px;
+    background-color: rgba(245, 234, 76, .8);
+    border: 1px solid purple;
+    border-radius: 10%;
+    }
+
+table.cardItem tbody tr th{
+    padding: 2.5px;
+    }
+
+table.cardItem tbody tr th.theader{
+    color: brown;
+    }
+
+table.cardItem tbody tr th.tcontent{
+    color: rgba(0, 0, 0, 0.75);
+    }
+     
+/* Code section for the footer section*/
+footer{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 25px 0px;
+    /* background-color: rgba(255, 68, 0, 0.70);*/
+        background: #ea5507; /* Old browsers */
+        background: -moz-linear-gradient(top,  #ea5507 0%, #f17432 24%, #f17432 24%, #fb955e 85%); /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,  #ea5507 0%,#f17432 24%,#f17432 24%,#fb955e 85%); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,  #ea5507 0%,#f17432 24%,#f17432 24%,#fb955e 85%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea5507', endColorstr='#fb955e',GradientType=0 ); /* IE6-9 */
+    display: inline-flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: space-between;
+}
+
+footer section{
+    height: 100%;
+    padding: 5px 0;
+}
+
+footer section.socialMedia img{
+    background-color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-left: 28px;
+}
+footer section.disclaimer{
+    font-weight: 500;
+    height: 100%;
+}
+
+
+/*Code section for SearchBar. Taken from: https://freefrontend.com/css-search-boxes/*/
+.search {
+    --background: #fff;
+    --text-color: #414856;
+    --primary-color: #4f29f0;
+    --border-radius: 10px;
+    --width: 190px;
+    --height: 55px;
+    width: auto;
+    height: var(--height);
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px rgba(65, 72, 86, .05);
+ 
+}
+.search input[type="text"] {
+    position: relative;
+    width: var(--height);
+    height: var(--height);
+    font: 400 16px 'Varela Round', sans-serif;
+    color: var(--text-color);
+    border: 0;
+    box-sizing: border-box;
+    outline: none;
+    padding: 0 0 0 40px;
+    transition: width 0.6s ease;
+    z-index: 10;
+    opacity: 0;
+    cursor: pointer;
+}
+.search input[type="text"]:focus {
+    z-index: 0;
+    opacity: 1;
+    width: var(--width);
+}
+.search input[type="text"]:focus ~ .symbol::before {
+    width: 0%;
+}
+.search input[type="text"]:focus ~ .symbol:after {
+    clip-path: inset(0% 0% 0% 100%);
+    transition: clip-path 0.04s linear 0.105s;
+}
+.search input[type="text"]:focus ~ .symbol .cloud {
+    top: -30px;
+    left: -30px;
+    transform: translate(0, 0);
+    transition: all 0.6s ease;
+}
+.search input[type="text"]:focus ~ .symbol .lens {
+    top: 20px;
+    left: 15px;
+    transform: translate(0, 0);
+    fill: var(--primary-color);
+    transition: top 0.5s ease 0.1s, left 0.5s ease 0.1s, fill 0.3s ease;
+}
+.search .symbol {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search .symbol:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-color);
+    z-index: -1;
+    transition: width 0.6s ease;
+}
+.search .symbol:after {
+    content: "";
+    position: absolute;
+    top: 21px;
+    left: 21px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    z-index: 1;
+    clip-path: inset(0% 0% 0% 0%);
+    transition: clip-path 0.04s linear 0.225s;
+}
+.search .symbol .cloud, .search .symbol .lens {
+    position: absolute;
+    fill: #fff;
+    stroke: none;
+    top: 50%;
+    left: 50%;
+}
+.search .symbol .cloud {
+    width: 35px;
+    height: 32px;
+    transform: translate(-50%, -60%);
+    transition: all 0.6s ease;
+}
+.search .symbol .lens {
+    fill: #fff;
+    width: 16px;
+    height: 16px;
+    z-index: 2;
+    top: 24px;
+    left: 24px;
+    transition: top 0.3s ease, left 0.3s ease, fill 0.2s ease 0.2s;
+}
+
+#searchBar{
+
+}
+
+#itemShow{
+
+}
+
+#itemList{
+
+}
+
+#itemFilter{
+
+}
+
+#countryList{
+
+}
+
+#countryFitler{
+
+}
+
+#countryWrapper{
+
+}
+
