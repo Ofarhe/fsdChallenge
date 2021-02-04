@@ -1,6 +1,6 @@
 # fsdChallenge
 WebPage implementing the RestCountries.eu API.
-As this is a SPI, the ony thing needed to run is to download the index and srx folder on the same file location and open the index.
+As this is a SPI, the ony thing needed to run is to download the index and src folder on the same file location and open the index.
 There, add the counrty to search for.
 
 Note: There are some parts I couldn't implement, like showing all the results on the cards.
