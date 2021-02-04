@@ -85,7 +85,7 @@ async function showCardItem(countryName, regionName, population, languagesName, 
 async function removeCardItems() {
     var cardHolder = document.getElementById("cardHolder");
     var cardItem = document.getElementById("hiddenCardItem")
-    cardItem.remove()
+    document.getElementById("cardHolder").innerHTML = "";
 }
 
 async function getCountryData() {
@@ -145,20 +145,24 @@ async function getData(api_url) {
     const response = await fetch(api_url);
     const data = await response.json();
     var countryData = [];
+    var countryDataLocal = [];
     countryLang = "";
     countryCurr = "";
-    for (i = 0; i < data[0].languages.length; i++) {
-        countryLang = countryLang.concat(data[0].languages[i].name, " ");
-    }
-    for (i = 0; i < data[0].currencies.length; i++) {
-        countryCurr = countryCurr.concat(data[0].currencies[i].name, " ");
-    }
-    countryData[0] = data[0].name;
-    countryData[1] = data[0].region;
-    countryData[2] = data[0].population;
-    countryData[3] = countryLang;
-    countryData[4] = countryCurr;
 
+    for (j = 0; j < (data.length)/5; j++){
+        for (i = 0; i < data[j].languages.length; i++) {
+            countryLang = countryLang.concat(data[j].languages[i].name, " ");
+        }
+        for (i = 0; i < data[j].currencies.length; i++) {
+            countryCurr = countryCurr.concat(data[j].currencies[i].name, " ");
+        }
+        countryDataLocal[0] = data[j].name;
+        countryDataLocal[1] = data[j].region;
+        countryDataLocal[2] = data[j].population;
+        countryDataLocal[3] = countryLang;
+        countryDataLocal[4] = countryCurr;
+    countryData[j] = countryDataLocal;
+    }
     return countryData;
 }
 
@@ -166,20 +170,27 @@ async function getCountryByName() {                              /* Creates a qu
     var name_url = "https://restcountries.eu/rest/v2/name/";
     var countryQuery = document.getElementById("simpleSearchBar").value;
     var new_name_url = name_url.concat(countryQuery);      //Retrieves the text as it gets clicked
-
+    var countryDataLocal = [];
     var countryData = await getData(new_name_url);
     try {
         removeCardItems();
     } catch (e) {
         logMyErrors(e);
     }
-    showCardItem(countryData[0], countryData[1], countryData[2], countryData[3], countryData[4]);
+    //Get elements in the response and print them
+        for (i = 0; i < countryData.length; i++){  
+            countryDataLocal = countryData[i];      
+            showCardItem(countryDataLocal[0], countryDataLocal[1], countryDataLocal[2], countryDataLocal[3], countryDataLocal[4]);
+        }
+
 }
 
 async function searchCountryByName() {                              /* Creates a query to retreive name */
     var check = "";
-    var check = document.getElementById("simpleSearchBar").value;
+    check = document.getElementById("simpleSearchBar").value;
     if (check.length >= 2) {
+
+        https://restcountries.eu/rest/v2/name/can?fields=name
 
         var name_url = "https://restcountries.eu/rest/v2/name/";
         var countryQuery = document.getElementById("simpleSearchBar").value;
@@ -200,8 +211,7 @@ async function searchCountryByName() {                              /* Creates a
     }
     else {
         var optionElement = document.createElement("option");
-        optionElement.value = "";
-        document.getElementById("countriesName").setAttribute.value(optionElement);
+        document.getElementById("countriesName").innerHTML = "";
 
     }
 }  
