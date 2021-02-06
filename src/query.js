@@ -1,29 +1,47 @@
+//Programmers Note:
+// for readibility, it is suggested to set rulers to [80, 120, 150]
 
-const api_url_name = "https://restcountries.eu/rest/v2/all?fields=name";
-const api_url_data = "https://restcountries.eu/rest/v2/all?fields=name;region;population;currencies;languages";
-var itemCount = 0;
+            /*   *****                      TABLE OF CONTENTS                       ***** */
+            /*
+            SECURITY AND CONTROL FUNCTIONS
+            ITEM HANDLERS
+            DATA HANDLERS
+            BUTTON FUNCTIONS
+            SEARCHBAR FUNCTIONS
+            */
+            /*   *****     -------------------------------------------------        ***** */
 
-/*  *****Creates functions for the Security Dialog Alert to pop if the query is less than 2 characters long *****/
-async function showDialogAlert(){
+
+
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
+/*   *****                                  SECURITY AND CONTROL FUNCTIONS                                      ***** */
+
+//        Displays an alert dialog in case a word with length <3 is entered
+async function showDialogAlert() {
     var securityAlertItem = document.getElementById("securityAlert");
-    if(typeof securityAlertItem.showModal === "function") {
+    if (typeof securityAlertItem.showModal === "function") {
         securityAlertItem.showModal();
     } else {
         alert("Your browser does not support dialog element!");
     }
-
 }
-async function closeAlert(){
+
+//        Closes Alert Dialog
+async function closeAlert() {
     document.getElementById("securityAlert").close();
 }
 
-/* -------------------- */
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
 
 
-/* ***** Country Card Item Handlers ***** */
+
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
+/*   *****                                           ITEM HANDLERS                                              ***** */
+
+//        Display the countries information on the 'cardItems'
 async function showCardItem(                                                    // Show the name items on screen
-    countryName, regionName, population, languagesName, currenciesName) 
-    {                           
+    countryName, regionName, population, languagesName, currenciesName) {
     // !Receives data from request
     // Open cardHolder div to add elements
     var cardHolder = document.getElementById("cardHolder");
@@ -31,8 +49,8 @@ async function showCardItem(                                                    
     //  Crate dummy elements to fill and add parameters to them
     //      Assign the corresponding ID's and class to the elements
     var cardItem = document.createElement("table");
-        cardItem.setAttribute('id', "hiddenCardItem");
-        cardItem.setAttribute('class', "cardItem");
+    cardItem.setAttribute('id', "hiddenCardItem");
+    cardItem.setAttribute('class', "cardItem");
     var cardItemBody = document.createElement("tbody");
     var cardItemNameRow = document.createElement("tr");
     var cardItemRegionRow = document.createElement("tr");
@@ -40,25 +58,25 @@ async function showCardItem(                                                    
     var cardItemLangRow = document.createElement("tr");
     var cardItemCurrRow = document.createElement("tr");
     var cardNameHead = document.createElement("th");
-        cardNameHead.setAttribute('class', "theader");
+    cardNameHead.setAttribute('class', "theader");
     var cardNameItem = document.createElement("th");
-        cardNameItem.setAttribute('class', "tcontent");
+    cardNameItem.setAttribute('class', "tcontent");
     var cardRegionHead = document.createElement("th");
-        cardRegionHead.setAttribute('class', "theader");
+    cardRegionHead.setAttribute('class', "theader");
     var cardRegionItem = document.createElement("th");
-        cardRegionItem.setAttribute('class', "tcontent");
+    cardRegionItem.setAttribute('class', "tcontent");
     var cardPopHead = document.createElement("th");
-        cardPopHead.setAttribute('class', "theader");
+    cardPopHead.setAttribute('class', "theader");
     var cardPopItem = document.createElement("th");
-        cardPopItem.setAttribute('class', "tcontent");
+    cardPopItem.setAttribute('class', "tcontent");
     var cardLangHead = document.createElement("th");
-        cardLangHead.setAttribute('class', "theader");
+    cardLangHead.setAttribute('class', "theader");
     var cardLangItem = document.createElement("th");
-        cardLangItem.setAttribute('class', "tcontent");
+    cardLangItem.setAttribute('class', "tcontent");
     var cardCurrHead = document.createElement("th");
-        cardCurrHead.setAttribute('class', "theader");
+    cardCurrHead.setAttribute('class', "theader");
     var cardCurrItem = document.createElement("th");
-        cardCurrItem.setAttribute('class', "tcontent");
+    cardCurrItem.setAttribute('class', "tcontent");
 
     //Assembles the 'cardItem' table with corresponding format
     cardItem.appendChild(cardItemBody);
@@ -95,79 +113,54 @@ async function showCardItem(                                                    
     cardHolder.appendChild(cardItem);
 }
 
+//        Remove the 'cardItems'
 async function removeCardItems() {                                              // Removes card items if requested
     var cardHolder = document.getElementById("cardHolder");
     var cardItem = document.getElementById("hiddenCardItem")
     document.getElementById("cardHolder").innerHTML = "";
 }
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
 
-/* -------------------- */
 
-async function getCountryData() {                                               //Temporal dummy function
-    country_name = [];
-    country_reg = [];
-    country_pop = [];
-    country_lang = [];
-    country_curr = [];
 
-    for (i = 0; i < data.length; i++) {
-        country_name = data[i].name;
-        country_reg = data[i].region;
-        country_pop = data[i].population;
-        for (j = 0; j < data[i].languages[j].length; j++) {
-            country_lang[j] = data[i].languages[j].name;
-        }
-        for (j = 0; j < data[i].currencies[j].length; j++) {
-            country_curr[j] = data[i].currencies[j].name;
-        }
-    }
-}
+/*   *****    ---------------------------------------DATA HANDLERS-------------------------------------------   ***** */
 
+//        Retreives the response and returns a the data needed
 async function getData(api_url) {
-    const response = await fetch(api_url);
-    const data = await response.json();
-    
-    //data.then(console.log(data));
-    
-    
-    return data;
+    let countriesData = await fetch(api_url)
+        .then(res => {
+            if (res.ok) {
+                return res.json()
+            } else {
+            // Shows three alerts for any to be used in case the query status equals 404
+                console.log("Such country doesn't exist! ='( Try typing again.")
+                alert("Such country doesn't exist!! \n ='( \n Try typing again.")
+                throw new TypeError("Such country doesn't exist!!! ='( \n")
+            /*
+            Any of these methods are to be replaced by the appropiate method to handle
+            Be it display an image, a text, resfresh info
+            Or just tell the developer what the issue is
+            */
+            }
+        })
+        .then(res => {
+            return res;
+        })
+        .catch(error => {                                                       // Catches any error that might happen during the conection
+            console.log(`ERROR. Such country doesn't exist! .__,`)
+            console.log(error)
+        });
+    return countriesData;
 }
-
-async function getAllData() {                                                   // Gets all data from all countries.
-    //  Test feature
-    //const response = await fetch(api_url_name);
-    const response = await fetch(api_url_data);                                 // Retrieves the query to use
-    const data = await response.json();                                         // Handles to JSON
-
-    console.log(`COUNTRIES INFORMATION`)                                        // Flags
-    console.log("-----------");                                                 //
-    console.log("-----------");                                                 //
-
-    for (j = 0; j < data.length; j++) {                                         // Retrieves the information on each country
-        console.log(data[j].name);
-        console.log(data[j].region);
-        console.log(data[j].population);
-
-        var languagesName = [];
-        for (i = 0; i < data[j].languages.length; i++) {
-            languagesName[i] = data[j].languages[i].name;
-            console.log(languagesName[i]);
-        }
-
-        var currenciesName = [];
-        for (i = 0; i < data[j].currencies.length; i++) {
-            currenciesName[i] = data[j].currencies[i].name;
-            console.log(currenciesName[i]);
-        }
-        console.log("-----------");
-    }
-    console.log("-----------");
-    console.log("-----------");
-
-}
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
 
 
- function getCountryByName() {                                                  /* Creates a query to retreive name(s) clicking the Search button */
+
+
+/*   *****                                         BUTTON FUNCTIONS                                             ***** */
+//        Button function to search and populate the card items
+async function getCountryByName() {                                             /* Creates a query to retreive name(s) clicking the Search button */
 
     var inputList = document.getElementById("simpleSearchBar");                 // Gets the searchbar item
     var check = inputList.value;                                                // Gets the value of the searchbar
@@ -175,7 +168,7 @@ async function getAllData() {                                                   
         // Security thing
         showDialogAlert();
         console.log("SecurityAlert");
-    } else if (check.length > 2){                                               // Double security check on the searchbar :D
+    } else if (check.length > 2) {                                              // Double security check on the searchbar :D
         try {
             removeCardItems();                                                  // Removes any existing Country Cards on the screen
         } catch (e) {
@@ -184,55 +177,59 @@ async function getAllData() {                                                   
 
         var name_url = "https://restcountries.eu/rest/v2/name/";
         var countryQuery = document.getElementById("simpleSearchBar").value;
-        var new_name_url = name_url.concat(
+        var new_name_url = name_url.concat(                                     // Assembles the query to search     
             countryQuery,
-            "?fields=name;region;population;currencies;languages");             // Assembles the query to search     
+            "?fields=name;region;population;currencies;languages");             
 
-        var countryData = getData(new_name_url);                                // Calls get_Data function to retreive the country information
-            countryData.then((countryData) => {                                   // Waits for the promise to be fulfilled and countryData to be returned
-                
-                /*      Gets elements in the response and prints them using showCardItemCard()       */
-                countryLang = "";
+        getData(new_name_url).                                                  // Calls get_Data function to retreive the country information
+            then((countryData) => {                                             // Waits for countryData to be returned and process the data
+
+                countryLang = "";                                               //
                 countryCurr = "";
-                    let noItems = countryData.length;
-                    //console.log(`Number of items ${noItems}`);
-                    
-                    for (i = 0; i < noItems ; i++){
-                        let languages = ""
-                        let currencies = ""
-                        let noCurr = countryData[i].currencies.length;
-                        let noLangs = countryData[i].languages.length;
-                        
-                        let name = countryData[i].name;
-                        let region = countryData[i].region;
-                        let pop = countryData[i].population;
-                        for (let j = 0; j < noLangs; j++){
-                            languages = languages.concat(countryData[i].languages[j].name,", ");
-                        }
-                        
-                        for (let j = 0; j < noCurr; j++){
-                            currencies = currencies.concat(countryData[i].currencies[j].name,", ");
-                        }
+                let noItems = countryData.length;
 
-                        showCardItem(name, region, pop, languages, currencies);
+                for (i = 0; i < noItems; i++) {                                 // Runs the data and retreives the information
+                    let languages = ""                                          //...
+                    let currencies = ""
+                    let noCurr = countryData[i].currencies.length;
+                    let noLangs = countryData[i].languages.length;
+
+                    let name = countryData[i].name;
+                    let region = countryData[i].region;
+                    let pop = countryData[i].population;
+                    for (let j = 0; j < noLangs; j++) {
+                        if (j == noLangs - 1) {
+                            languages = languages.concat(countryData[i].languages[j].name);
+                        } else {
+                            languages = languages.concat(countryData[i].languages[j].name, ", ");
+                        }
                     }
-            
-            }).catch((err) => {                                                 // If something went wrong, catches the error and displays a dummy
-                console.log(`This isn't working, go to sleep --- ${err}`)
 
-                // INSTEAD OF LOOKING FOR ERROR HERE, LOOK FOR ERROR SINCE THE SEARCH BAR. STOP THE USER FROM SEARCHING IF THERE'S NO DATA.
-                
-                //console.error(err);
-                //console.log("error!!! error!!! error!!!");
-                //var cardHolder = document.getElementById("cardHolder");
-                //cardHolder.appendChild(`<image src="src/imgs/placeHolder404.gif">Error 404</image>`);
+                    for (let j = 0; j < noCurr; j++) {
+                        if (j == noCurr - 1) {
+                            currencies = currencies.concat(countryData[i].currencies[j].name);
+                        } else {
+                            currencies = currencies.concat(countryData[i].currencies[j].name, ", ");
+                        }                                                       //...
+                    }                                                           // to be used in the showCardItem function
 
-            });    
+                    showCardItem(name, region, pop, languages, currencies);     //Get elements in the response and prints them with showCardItemCard()
+                }
+            })
+            .catch((err) => {                                                   //If something went wrong and reaches here
+                console.log(`Error Log: --- ${err}`)                            //catches the error and displays a dummy
+            });
     }
 }
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
 
-//Function Ready
-async function searchCountryByName() {                                          /* Creates a query to retreive name while typing in the dropdown list*/
+
+
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
+/* *****                                        SEARCHBAR FUNCTIONS                                             ***** */
+//        SearchBar function to search and populate the dropdown list
+async function searchCountryByName() {                                          // Creates a query to retreive name while typing in the dropdown list
     var inputList = document.getElementById("simpleSearchBar");                 // Call the searchbar
     var check = inputList.value;                                                // Call the value of the searchbar
     if (check.length > 2) {                                                     // Check the length of the word,
@@ -240,7 +237,7 @@ async function searchCountryByName() {                                          
         var name_url = "https://restcountries.eu/rest/v2/name/";                //Assembles the query
         var countryQuery = document.getElementById("simpleSearchBar").value;    // ...
         var new_name_url = name_url.concat(countryQuery, "?fields=name");       // Assembles the value entered
-        
+
         try {
             const response = await fetch(new_name_url);                         // Fetches the query made by the user
             const data = await response.json();                                 //..
@@ -253,7 +250,6 @@ async function searchCountryByName() {                                          
             document.getElementById("simpleSearchBar").append(dataListItem);    //..
 
             for (var let in data) {                                             // Fills the list element with matching countries
-                //console.log(countryQuery)                                       // Dummy filler!! :D
                 var optionElement = document.createElement("option");
                 optionElement.setAttribute("id", "optionItem");
                 optionElement.value = data[let].name;
@@ -269,4 +265,5 @@ async function searchCountryByName() {                                          
         document.getElementById("countriesName").innerHTML = "";
 
     }
-}  
+}
+/*   *****    -----------------------------------------------------------------------------------------------   ***** */
