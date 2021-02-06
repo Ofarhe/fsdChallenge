@@ -13,7 +13,7 @@
     <div id="searchTab">
         <section id="searchBar" class="search">
             <form autocomplete="off">
-                <input type="text" list="countriesName" id="simpleSearchBar" onkeypress="searchCountryByName()"
+                <input type="text" list="countriesName" id="simpleSearchBar" onkeyup="searchCountryByName()"
                     autocomplete="off">
                 <datalist id="countriesName"></datalist>
             </form>
@@ -22,6 +22,10 @@
             <input type="button" name="searchButt" id="simpleSearchButton" class="pushButton"
                 onclick="getCountryByName()" value="Search"> </button>
         </section>
+        <dialog id="securityAlert">
+            <p>The country name on the search box MUST be larger than 3 characters</p>
+            <button type="button" onclick="closeAlert();">Ok :(</button>
+        </dialog>
     </div>
     <section id="logo">
         <figure>

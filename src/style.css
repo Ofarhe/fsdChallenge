@@ -11,6 +11,14 @@ body{
     align-items: center;
     }
 
+dialog {
+    text-align: center;
+}
+/* Backdrop is only displayed when dialog is opened using showModal() method */
+dialog::backdrop {
+    background: rgba(0, 0, 0, .75);
+}
+
 /*Code section for Header formatting*/
 header{
         background: #47efaf; /* Old browsers */
@@ -64,7 +72,8 @@ header figure figcaption{
         text-align: center;
         text-decoration: none;
         outline: none;
-        color: #fff;
+        /*color: #fff;*/
+	color: black;
         background-color: rgba(245, 234, 76, 1);
         border: none;
         border-radius: 15px;
